@@ -1,0 +1,68 @@
+@use './mixins.scss' as mixins;
+
+body {
+  text-align: left;
+  font-family: 'Dosis', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Disable auto-enlargement of small text in Safari */
+  text-size-adjust: 100%;
+  /* Enable kerning and optional ligatures */
+  text-rendering: optimizeLegibility;
+}
+
+$scale-12: 0.75rem;
+$scale-14: 0.875rem;
+$scale-16: 1rem;
+$scale-20: 1.25rem;
+$scale-24: 1.5rem;
+$scale-28: 1.75rem;
+$scale-32: 2rem;
+$scale-34: 2.125rem;
+$scale-36: 2.25rem;
+$scale-40: 2.5rem;
+$scale-44: 2.75rem;
+
+// Headings
+@include mixins.responsive-font-size($scale-34, $scale-44, $scale-28, $scale-36, '.heading-1', h1);
+@include mixins.responsive-font-size($scale-28, $scale-36, $scale-24, $scale-32, '.heading-2', h2);
+@include mixins.responsive-font-size($scale-24, $scale-32, $scale-20, $scale-28, '.heading-3', h3);
+@include mixins.responsive-font-size($scale-20, $scale-28, $scale-20, $scale-24, '.heading-4', h4);
+@include mixins.responsive-font-size($scale-20, $scale-24, $scale-16, $scale-24, '.heading-5', h5);
+
+// Body
+@include mixins.responsive-font-size($scale-20, $scale-28, $scale-16, $scale-24, '.body', p);
+
+// Overrides
+h1,
+h2,
+h3,
+h4,
+h5,
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4,
+.heading-5 {
+  // Different default for headings
+  color: var(--color-heading);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: bold;
+  margin: 0;
+}
+
+p,
+h1 {
+  color: var(--color-text);
+}
+
+.bold {
+  font-weight: bold;
+}

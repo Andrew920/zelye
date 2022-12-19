@@ -1,0 +1,62 @@
+:root {
+  // Layout
+  --layout-padding: 1.5rem;
+
+  // Colors
+  // --white: #ffffff;
+
+  // --black-100: #000000;
+  // --black-80: #333333;
+  // --black-60: #666666;
+  // --black-40: #999999;
+  // --black-20: #cccccc;
+  // --black-10: #e6e6e6;
+
+  // --taravera-100: #253846;
+  // --taravera-80: #51606b;
+  // --taravera-60: #7c8890;
+  // --taravera-40: #a8afb5;
+  // --taravera-20: #d3d7da;
+  // --taravera-10: #eaeced;
+
+  // --astral-100: #317aa1;
+  // --astral-80: #5a95b4;
+  // --astral-60: #83afc7;
+  // --astral-40: #adcad9;
+  // --astral-20: #d6e4ec;
+  // --astral-10: #ebf2f6;
+
+  // --apple-100: #b64040;
+  // --apple-80: #c46666;
+  // --apple-60: #d38d8d;
+  // --apple-40: #e2b3b3;
+  // --apple-20: #f0d9d9;
+  // --apple-10: #f8ecec;
+
+  // --emerald-100: #339f65;
+  // --emerald-80: #5cb284;
+  // --emerald-60: #85c5a3;
+  // --emerald-40: #add9c1;
+  // --emerald-20: #d6ece0;
+  // --emerald-10: #ebf6f0;
+
+  // --jonquil-100: #f4d119;
+  // --jonquil-80: #f6da47;
+  // --jonquil-60: #f8e375;
+  // --jonquil-40: #fbeda3;
+  // --jonquil-20: #fdf6d1;
+  // --jonquil-10: #fefbe8;
+}
+
+body,
+[data-colorscheme="light"] {
+  // --color-text: var(--black-100);
+  // --color-background: var(--taravera-10);
+  // --color-heading: var(--taravera-100);
+}
+
+[data-colorscheme="dark"] {
+  // --color-text: var(--white);
+  // --color-background: var(--taravera-100);
+  // --color-heading: var(--taravera-10);
+}
