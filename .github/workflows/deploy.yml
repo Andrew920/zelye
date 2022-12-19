@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy zelye qr menu
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
         with:
           host: ${{secrets.SSH_HOST}}
