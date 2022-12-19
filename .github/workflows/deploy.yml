@@ -15,4 +15,5 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           username: ${{secrets.SSH_USERNAME}}
 
-      - run: git pull ; docker compose down ; docker compose up --build
+      - run: docker compose down 
+      - run: docker compose up --build
