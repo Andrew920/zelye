@@ -17,5 +17,6 @@ jobs:
           script: |
             cd /zelye/zelye
             git pull
+            cd code
             docker ps | grep -q 'api' && docker compose down
             docker compose up --build -d
