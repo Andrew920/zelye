@@ -6,15 +6,17 @@ const conn = mysql.createConnection({
     database: "zelye"
 });
 
-conn.connect((err) => {
-    while(err){
-        console.log('Error connecting to Db ' + err);
-    }
-    // if(err){
-    //     console.log('Error connecting to Db ' + err);
-    //     return;
-    //   }
-    console.log('Connection established');
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+sleep(20000).then(() => {
+    conn.connect((err) => {
+        if(err){
+            console.log('Error connecting to Db ' + err);
+            return;
+          }
+          console.log('Connection established');
+    });
 });
 
 module.exports = conn;
