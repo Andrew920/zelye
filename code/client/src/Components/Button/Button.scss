@@ -1,0 +1,54 @@
+.icon-button {
+  color: var(--white-100);
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &.primary {
+    background-color: var(--accent-100);
+    color: var(--primary-100);
+
+    &:active {
+      background-color: var(--accent-80);
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: var(--white-100);
+
+    &:active {
+      background-color: rgba(#fff, 0.1);
+    }
+  }
+
+  &.destructive {
+    color: red;
+  }
+
+  &.large {
+    padding: 1rem;
+  }
+
+  &.normal {
+    padding: 0.5rem;
+  }
+}
+
+.button {
+  color: var(--white-100);
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  background-color: var(--accent-100);
+  color: var(--white-100);
+  font-size: 1rem;
+  font-weight: bold;
+
+  &:active {
+    background-color: var(--accent-80);
+  }
+  padding: 0.5rem;
+}

@@ -1,0 +1,27 @@
+.menu-item-view__content {
+  overflow-y: auto;
+
+  .header {
+    height: 70vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: stretch;
+    padding: 1rem;
+
+    .navigation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+  }
+}

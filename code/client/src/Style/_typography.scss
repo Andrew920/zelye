@@ -2,7 +2,7 @@
 
 body {
   text-align: left;
-  font-family: 'Dosis', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,7 +32,7 @@ $scale-44: 2.75rem;
 @include mixins.responsive-font-size($scale-20, $scale-24, $scale-16, $scale-24, '.heading-5', h5);
 
 // Body
-@include mixins.responsive-font-size($scale-20, $scale-28, $scale-16, $scale-24, '.body', p);
+@include mixins.responsive-font-size($scale-20, $scale-28, $scale-16, $scale-24, '.body', p, span);
 
 // Overrides
 h1,

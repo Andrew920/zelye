@@ -1,0 +1,37 @@
+.category-card__container {
+  border-radius: 0.5rem;
+  color: var(--color-text);
+  text-decoration: none;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+  background: var(--primary-80);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 0.75rem;
+
+  $box-height: 140px;
+  $box-height-scaler: 60px;
+
+  &.small {
+    height: calc($box-height + 0 * $box-height-scaler);
+  }
+
+  &.medium {
+    height: calc($box-height + 1 * $box-height-scaler);
+  }
+
+  &.large {
+    height: calc($box-height + 2 * $box-height-scaler);
+  }
+
+  font-weight: bold;
+
+  .icon-wrapper {
+    color: var(--accent-100);
+  }
+}

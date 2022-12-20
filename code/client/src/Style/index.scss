@@ -3,17 +3,16 @@
 @import url('./_typography.scss');
 
 body {
-  // background-color: var(--color-background);
-  // color: var(--color-text);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
 }
 
-// .background-image {
-//   background-image: url("../Assets/Images/app-background.jpg");
-//   background-repeat: no-repeat;
-//   background-position: center center;
-//   background-attachment: fixed;
-//   -webkit-background-size: cover;
-//   -moz-background-size: cover;
-//   -o-background-size: cover;
-//   background-size: cover;
-// }
+.app-wrapper {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  inset: 0 0 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

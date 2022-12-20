@@ -1,20 +1,31 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { store } from 'Store';
+import { AppRoutes } from 'AppRoutes';
 import reportWebVitals from './reportWebVitals';
 import 'Style/index.scss';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
+const { REACT_APP_GOOGLE_CLIENT } = process.env;
+
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <Provider store={store}>
-      <div>Placeholder for App</div>
+      <GoogleOAuthProvider clientId={REACT_APP_GOOGLE_CLIENT || ''}>
+        <div className='app-wrapper'>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </div>
+      </GoogleOAuthProvider>
     </Provider>
-  </React.StrictMode>
+  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

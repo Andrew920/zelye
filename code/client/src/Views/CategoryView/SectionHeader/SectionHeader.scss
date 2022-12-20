@@ -1,0 +1,23 @@
+.section-header {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 1rem 0rem;
+
+  span {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .line {
+    height: 2px;
+    background-color: var(--accent-100);
+
+    &.leading {
+      width: 0.75rem;
+    }
+    &.trailing {
+      flex: 1;
+    }
+  }
+}

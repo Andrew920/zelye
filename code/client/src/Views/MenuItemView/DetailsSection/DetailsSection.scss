@@ -1,0 +1,28 @@
+.details-section {
+  padding: 1rem;
+  .details-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      font-weight: bold;
+      color: #929496;
+      text-transform: capitalize;
+      flex: 1;
+    }
+
+    div {
+      display: flex;
+      justify-items: space-between;
+      align-items: center;
+    }
+
+    .active {
+      color: var(--accent-100);
+    }
+    .inactive {
+      color: #929496;
+    }
+  }
+}

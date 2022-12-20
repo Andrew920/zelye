@@ -1,1 +1,13 @@
-export {};
+export { ReactComponent as ChevronLeft } from './chevron_left.svg';
+export { ReactComponent as ChevronRight } from './chevron_right.svg';
+export { ReactComponent as Close } from './close.svg';
+export { ReactComponent as Egg } from './egg.svg';
+export { ReactComponent as Filter } from './filter_alt.svg';
+export { ReactComponent as Info } from './help.svg';
+export { ReactComponent as Ingredients } from './ingredients.svg';
+export { ReactComponent as Photo } from './photo.svg';
+export { ReactComponent as Radar } from './radar.svg';
+export { ReactComponent as RateReview } from './rate_review.svg';
+export { ReactComponent as Sort } from './sort.svg';
+export { ReactComponent as TableRows } from './table_rows.svg';
+export { ReactComponent as TextSnippet } from './text_snippet.svg';
