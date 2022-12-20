@@ -1,8 +1,8 @@
 **/logs
 
-**/node_modules
+# **/node_modules
 
-/code/api/node_modules
+# /code/api/node_modules
 /code/client/node_modules
 
 **/core
