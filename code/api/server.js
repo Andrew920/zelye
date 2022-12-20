@@ -1,3 +1,6 @@
+const {execSync} = require('child_process');
+execSync('sleep 10');
+
 const express = require("express");
 app = express();
 port = process.env.PORT || 5000;
