@@ -4,7 +4,8 @@ FROM node:latest
 WORKDIR /app
 
 # Install app dependencies
-COPY ../package.json yarn.lock ./
+COPY ./package.json ./
+COPY ./yarn.lock ./
 RUN yarn install
 
 # Bundle app source
