@@ -7,11 +7,14 @@ const conn = mysql.createConnection({
 });
 
 conn.connect((err) => {
-    if(err){
+    while(err){
         console.log('Error connecting to Db ' + err);
-        return;
-      }
-      console.log('Connection established');
+    }
+    // if(err){
+    //     console.log('Error connecting to Db ' + err);
+    //     return;
+    //   }
+    console.log('Connection established');
 });
 
 module.exports = conn;
