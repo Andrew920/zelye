@@ -21,6 +21,7 @@ export const DetailsSection: FC<DetailsSectionT> = ({ items }) => {
         <div>
           {items.map((item) => (
             <IconButton
+              key={item.id}
               onClick={() => setActiveItem(item)}
               icon={item.icon}
               className={activeItem.id == item.id ? 'active' : 'inactive'}

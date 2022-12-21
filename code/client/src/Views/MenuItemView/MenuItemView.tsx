@@ -1,5 +1,5 @@
 import { useGetRestaurantQuery } from 'Api';
-import { IconButton, IconName, Spinner } from 'Components';
+import { Button, IconButton, IconName, Spinner } from 'Components';
 import { FC, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { DetailsSection } from './DetailsSection';
@@ -33,6 +33,12 @@ export const MenuItemView: FC = () => {
       >
         <div className='navigation-header'>
           <IconButton icon={IconName.ChevronLeft} href='..' />
+          <IconButton
+            variant='primary'
+            size='large'
+            icon={IconName.RateReview}
+            href='../../review-restaurant'
+          />
         </div>
 
         <div className='title-header'>

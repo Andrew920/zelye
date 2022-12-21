@@ -1,0 +1,21 @@
+.table-reviews {
+  .table-reviews-row {
+    display: flex;
+    padding: 1rem;
+    background-color: rgba($color: #fff, $alpha: 0.1);
+
+    &:nth-child(even) {
+      background-color: transparent;
+    }
+    &:last-of-type {
+      font-size: 1.2rem;
+    }
+
+    .category {
+      flex: 1 1;
+    }
+    .value {
+      text-align: left;
+    }
+  }
+}

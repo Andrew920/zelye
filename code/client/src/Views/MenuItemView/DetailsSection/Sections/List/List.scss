@@ -1,0 +1,14 @@
+ul.list {
+  padding: 1rem var(--layout-padding);
+  margin: 0;
+  list-style: none;
+
+  li::before {
+    content: '\2666';
+    color: var(--primary-60);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+}

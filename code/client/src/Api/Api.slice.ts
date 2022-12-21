@@ -1,13 +1,22 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { RestaurantT, SponsorT } from 'Types';
+import { RateRestaurantRequestT, RestaurantT, SponsorT, UserAuth } from 'Types';
 import { baseQuery } from './config';
 
 export const applicationApi = createApi({
   reducerPath: 'applicationApi',
   baseQuery: baseQuery,
   endpoints: (builder) => ({
+    userInfo: builder.mutation<UserAuth, string>({
+      query: () => 'auth',
+    }),
+    rateRestaurant: builder.mutation<RateRestaurantRequestT, RateRestaurantRequestT>({
+      query: (rating: RateRestaurantRequestT) => ({
+        url: `restaurants/${rating.id}`,
+        body: rating,
+      }),
+    }),
     getRestaurant: builder.query<RestaurantT, string>({
-      query: (restaurantName: string) => `restaurants/${restaurantName}`,
+      query: (restaurantId: string) => `restaurants/${restaurantId}`,
     }),
     getSponsor: builder.query<SponsorT, void>({
       query: () => 'sponsor',

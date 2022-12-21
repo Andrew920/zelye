@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { AlergenT, IngredientT } from 'Types';
+import './List.scss';
 
 export type ListT = {
   items: Array<AlergenT | IngredientT>;
@@ -7,7 +8,7 @@ export type ListT = {
 
 export const List: FC<ListT> = ({ items }) => {
   return (
-    <ul>
+    <ul className='list'>
       {items.map((item) => (
         <li>{item.name}</li>
       ))}
