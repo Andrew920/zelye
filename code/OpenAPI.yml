@@ -163,6 +163,10 @@ components:
           type: array
           items: 
             $ref: '#/components/schemas/Subcategories'
+        col: 
+          type: integer
+          enum: [0, 1]
+          example: 0
     Subcategories:
       type: object
       properties:

@@ -51,6 +51,7 @@ export type CategoryT = {
   id: string;
   category: string;
   image: string;
+  col: 0 | 1;
   size: 'large' | 'medium' | 'small';
   subcategories: Array<SubcategoryT>;
 };
@@ -60,5 +61,5 @@ export type RestaurantT = {
   description: string;
   contantInformation: ContantInfoT;
   restaurantRating: RestaurantRatingT;
-  menu: Array<Array<CategoryT>>;
+  menu: Array<CategoryT>;
 };
