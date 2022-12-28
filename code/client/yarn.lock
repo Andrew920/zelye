@@ -7616,6 +7616,13 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-slider@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-slider/-/react-slider-2.0.4.tgz#21c656ffabc3bb4481cf6b49e6d647baeda83572"
+  integrity sha512-sWwQD01n6v+MbeLCYthJGZPc0kzOyhQHyd0bSo0edg+IAxTVQmj3Oy4SBK65eX6gNwS9meUn6Z5sIBUVmwAd9g==
+  dependencies:
+    prop-types "^15.8.1"
+
 react-ui-scrollspy@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-ui-scrollspy/-/react-ui-scrollspy-2.1.0.tgz#60ccaddcd5cd458721854f0a49dea6580e01a3f0"

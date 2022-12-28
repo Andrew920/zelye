@@ -1,0 +1,27 @@
+.rate-restaurant {
+  padding: var(--layout-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 2rem;
+  overflow-y: auto;
+  .rate-restaurant__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .item-rate {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 2rem;
+  }
+
+  .finish {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+}

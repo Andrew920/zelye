@@ -63,7 +63,7 @@ export const RestaurantView: FC = () => {
               variant='primary'
               size='large'
               icon={IconName.RateReview}
-              href='review-restaurant'
+              href='rate-restaurant'
             />
           </div>
         </div>

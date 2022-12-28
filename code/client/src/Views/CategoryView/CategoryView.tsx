@@ -16,7 +16,7 @@ export const CategoryView: FC = () => {
 
   const category = useMemo(() => {
     if (!categoryId || !restaurantData) return undefined;
-    return restaurantData.menu.flat().find((category) => category.id == categoryId);
+    return restaurantData.menu.find((category) => category.id == categoryId);
   }, [categoryId, restaurantData, location]);
 
   const sectionRefs = useMemo(() => {

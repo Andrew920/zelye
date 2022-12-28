@@ -20,7 +20,7 @@ export const AppRoutes: FC = () => {
       children: [
         { index: true, element: <RestaurantView /> },
         {
-          path: 'review-restaurant',
+          path: 'rate-restaurant',
           element: <RateRestaurantView />,
         },
         {

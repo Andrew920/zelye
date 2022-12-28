@@ -1,7 +1,9 @@
 import { useGetRestaurantQuery } from 'Api';
 import { Button, IconButton, IconName, Spinner } from 'Components';
+import { useAppDispatch, useAppSelector } from 'Hooks';
 import { FC, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { addToRate, removeFromRate } from 'Slices';
 import { DetailsSection } from './DetailsSection';
 import { Description, List, Radar, TableReviews } from './DetailsSection/Sections';
 import './MenuItemView.scss';
@@ -14,12 +16,14 @@ export const MenuItemView: FC = () => {
   const foodItem = useMemo(() => {
     if (!categoryId || !dish || !restaurant || !data) return undefined;
     return data.menu
-      .flat()
       .find((item) => item.id == categoryId)
       ?.subcategories.map((item) => item.items)
       .flat()
       .find((item) => item.id == dish);
   }, [data, categoryId, dish, restaurant]);
+
+  const { items } = useAppSelector((state) => state.rate);
+  const dispatch = useAppDispatch();
 
   return isLoading ? (
     <Spinner />
@@ -33,11 +37,15 @@ export const MenuItemView: FC = () => {
       >
         <div className='navigation-header'>
           <IconButton icon={IconName.ChevronLeft} href='..' />
-          <IconButton
-            variant='primary'
-            size='large'
-            icon={IconName.RateReview}
-            href='../../review-restaurant'
+          <Button
+            text={items.some((item) => item.id == foodItem.id) ? 'Remove' : 'Add to rate'}
+            onClick={() =>
+              dispatch(
+                items.some((item) => item.id == foodItem.id)
+                  ? removeFromRate(foodItem.id)
+                  : addToRate(foodItem)
+              )
+            }
           />
         </div>
 
