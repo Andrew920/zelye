@@ -2,23 +2,23 @@ FROM node:latest as build-stage
 
 WORKDIR /app
 
-COPY ../client/package.json ./
-COPY ../client/yarn.lock ./
+COPY ./client/package.json ./
+COPY ./client/yarn.lock ./
 
 RUN yarn install
-COPY ../ .
+COPY ./client .
 RUN yarn build
 
 
 FROM node
 
 WORKDIR /expressjs
-COPY . .
+COPY ./api .
 
 RUN npm install
 RUN npm install -g nodemon
 
-COPY --from=build-stage /app/build ./client/build
+COPY --from=build-stage /app/build ./build
 
 CMD ["npm", "start"]
 

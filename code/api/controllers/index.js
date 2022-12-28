@@ -74,7 +74,7 @@ exports.getRestaurant = (req, res, next) => {
         image: "test.jpg",
         description: "Test",
         alergens: [AlergenT],
-        ingredients: ["Tle pridejo sestavine", "Test"],
+        ingredients: ["Tle pridejo sestavinee", "Test"],
         rating: FoodRatingT,
         price: {
           currency: "EUR",

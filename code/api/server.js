@@ -11,11 +11,22 @@ const router = require("./routes");
 app.use(router);
 
 app.use(cors());
-app.listen(port, () => console.log("Backend server live on " + port));
+app.use(express.json());
 
-app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+const path = require('path');
+
+app.use(express.static('./build'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
+// app.use(express.static('./client/build'));
+// app.get('/*', (req,res) =>{
+//     res.sendFile(path.join(__dirname+'/client/build/'));
+// });
+
+app.listen(port, () => console.log("Backend server live on " + port));
 
 // app.get("/api/restaurant/:id", (req, res) => {
 //   // Vrne vse menije, submenije, ime ozadja
