@@ -7,6 +7,7 @@ services:
 
     volumes:
       - ./api/server.js:/expressjs/server.js
+      - ./api/controllers:/expressjs/controllers
 
     ports:
       - 5000:5000

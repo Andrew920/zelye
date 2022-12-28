@@ -23,7 +23,7 @@ exports.getRestaurant = (req, res, next) => {
     }
 
     Q.all([getNameLocation(),getContact(),getRating()]).then(function(results){
-      const ContantInfoT = {
+      const contantInfo = {
         mobile: results[1][0][0].mobile,
         location: {
           country: results[1][0][0].country,
@@ -46,7 +46,7 @@ exports.getRestaurant = (req, res, next) => {
         ratings[i] = ratings[i]/results[2][0].length;
       }
 
-      const RestaurantRatingT = {
+      const restaurantRating = {
         hospitality: ratings[0],
         food: ratings[1],
         atmosphere: ratings[2],
