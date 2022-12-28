@@ -1,0 +1,265 @@
+openapi: 3.0.3
+info:
+  title: Zelye
+  description: |-
+    An application that allows users to scan the QR codes in restaurants and see the digital menu that is offered in the restaurants. On top of that, it enables the users to see and provide feedback for each individual menu item that they ordered.
+  version: 1.0.0
+servers:
+  - url: http://www.167.71.44.98:5000
+tags:
+  - name: restaurant
+    description: See and rate the digital menu of the restaurant
+  - name: sponsor
+    description: Recieve sponsor for the current session of the user
+paths:
+  /restaurant/{id}:
+    get:
+      tags:
+        - restaurant
+      summary: Recieve restaurant data
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the restaurant to get
+       
+      operationId: getRestaurant
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Restaurant"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Restaurant not found
+  /restaurant/{id}/rate:
+    post:
+      tags:
+        - 'restaurant'
+      summary: Rate the restaurant and one of its meals
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the restaurant to get
+      - in: header
+        name: token
+        schema:
+          type: string
+        required: true
+        description: A user JWT token so that we can authenticate them.
+      operationId: rateRestaurant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RateRestaurant"
+
+      responses:
+        '200':
+          description: Successful operation
+  /sponsor:
+    get:
+      tags:
+        - sponsor
+      summary: Recieve random sponsor data
+      operationId: getSponsor
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sponsor"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Restaurant not found
+components:
+  schemas:
+    RateRestaurant:
+      type: object
+      properties:
+        foodId:
+          type: integer
+          format: int64
+          example: 10
+    Restaurant:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        title:
+          type: string
+          example: Restavracija Buf
+        description:
+          type: string
+          example: Prava pizerija in špagetarija
+        contactMobile: 
+          type: string
+          example: 030697405
+        contactEmail: 
+          type: string
+          example: buf@buf.si
+        restaurantRating:
+          type: object
+          properties:
+            hospitality: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            food: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            atmosphere: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            value: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            location: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            menu:
+              type: array
+              items:
+                $ref: "#/components/schemas/Category" 
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 2
+
+        category: 
+          type: string
+          example: Main Dishes
+        image:
+          type: string
+          format: uri
+        size: 
+          type: string
+          enum: ['large', 'medium', 'small']
+        subcategories: 
+          type: array
+          items: 
+            $ref: '#/components/schemas/Subcategories'
+    Subcategories:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        name: 
+          type: string
+          example: Pizzas
+        items: 
+          type: array
+          items: 
+            $ref: '#/components/schemas/MenuItem'
+    MenuItem:
+      type: object
+      properties:
+        id: 
+          type: integer
+          example: 4
+        name: 
+          type: string
+          example: Normal Pizza
+        image: 
+          type: string
+          format: uri
+        description:
+          type: string
+          example: A delicious pizza topped with tomato sauce, ham and cheese.
+        alergens:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Alergen'
+        rating:
+          type: object
+          properties:
+            taste: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            quality: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            presentation: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            creativity: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+            memorability: 
+              type: number
+              minimum: 0
+              maximum: 100
+              example: 75
+        price: 
+          type: string
+          example: 8.99€
+    Alergen:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name: 
+          type: string
+          example: Wheat
+    Ingredient:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name: 
+          type: string
+          example: Tomato sauce
+    Sponsor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 2
+        name: 
+          type: string
+          example: Coca-cola
+        logotype: 
+          type: string
+          format: uri
+        background:
+          type: string
+          format: uri
+        
+
+    
