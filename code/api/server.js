@@ -13,6 +13,10 @@ app.use(router);
 app.use(cors());
 app.listen(port, () => console.log("Backend server live on " + port));
 
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
+
 // app.get("/api/restaurant/:id", (req, res) => {
 //   // Vrne vse menije, submenije, ime ozadja
 //   res.send({ message: ("Restauracija: " + req.params.id) });
