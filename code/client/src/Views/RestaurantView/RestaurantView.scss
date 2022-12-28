@@ -28,4 +28,10 @@
       flex-direction: column;
     }
   }
+
+  .restaurant-view__action_button {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
 }
