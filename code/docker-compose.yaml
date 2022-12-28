@@ -5,8 +5,9 @@ services:
       context: ./
       dockerfile: ./api/Dockerfile
 
-    # volumes:
-    #   - ./api:/expressjs
+    volumes:
+      - ./api/server.js:/expressjs/server.js
+
     ports:
       - 5000:5000
     depends_on:

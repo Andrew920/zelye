@@ -18,7 +18,7 @@ COPY ./api .
 RUN npm install
 RUN npm install -g nodemon
 
-COPY --from=build-stage /app/build ./build
+COPY --from=build-stage /app/build ./public/build
 
 CMD ["npm", "start"]
 

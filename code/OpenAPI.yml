@@ -138,10 +138,10 @@ components:
               minimum: 0
               maximum: 100
               example: 75
-            menu:
-              type: array
-              items:
-                $ref: "#/components/schemas/Category" 
+        menu:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category" 
     Category:
       type: object
       properties:

@@ -68,7 +68,7 @@ exports.getRestaurant = (req, res, next) => {
         icon: "test.jpg"
       };
 
-      const FoodItemT = {
+      const foodItem = {
         id: "1",
         title: "Test",
         image: "test.jpg",
@@ -82,28 +82,29 @@ exports.getRestaurant = (req, res, next) => {
         }
       };
       
-      const SubcategoryT = {
+      const subcategory = {
         id: 1,
         title: "Pasta",
-        items: [FoodItemT]
+        items: [foodItem]
       };
       
-      const CategoryT = {
+      const category = {
         id: 1,
         category: "Glavna jed",
         image: "test.jpg",
         size: "large",
-        subcategories: [SubcategoryT]
+        subcategories: [subcategory],
+        col: 0
       };
       
 
       let json = {
         id: results[0][0][0].id,
-        name: results[0][0][0].name,
+        title: results[0][0][0].name,
         location: results[0][0][0].location,
-        ContantInfoT,
-        RestaurantRatingT,
-        menu: [[CategoryT, CategoryT], [CategoryT, CategoryT]]
+        contantInfo,
+        restaurantRating,
+        menu: [[category, category], [category, category]]
       }
         res.send(JSON.stringify(json));
         // console.log(JSON.stringify(json));
