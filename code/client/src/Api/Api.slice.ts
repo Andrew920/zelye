@@ -11,12 +11,12 @@ export const applicationApi = createApi({
     }),
     rateRestaurant: builder.mutation<RateRestaurantRequestT, RateRestaurantRequestT>({
       query: (rating: RateRestaurantRequestT) => ({
-        url: `restaurants/${rating.id}`,
+        url: `restaurant/${rating.id}`,
         body: rating,
       }),
     }),
     getRestaurant: builder.query<RestaurantT, string>({
-      query: (restaurantId: string) => `restaurants/${restaurantId}`,
+      query: (restaurantId: string) => `restaurant/${restaurantId}`,
     }),
     getSponsor: builder.query<SponsorT, void>({
       query: () => 'sponsor',

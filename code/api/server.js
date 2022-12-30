@@ -1,5 +1,5 @@
-const {execSync} = require('child_process');
-execSync('sleep 10');
+const { execSync } = require("child_process");
+execSync("sleep 10");
 
 const express = require("express");
 app = express();
@@ -8,18 +8,17 @@ cors = require("cors");
 
 const router = require("./routes");
 
-
 app.use("/api", router);
 
 app.use(cors());
 app.use(express.json());
 
-const path = require('path');
+const path = require("path");
 
 app.use(express.static("./public/build"));
 
-app.all("*", (req, res) =>
-      res.sendFile(path.resolve("public", "build", "index.html"))
+app.get("/*", (req, res) =>
+  res.sendFile(path.resolve("public", "build", "index.html"))
 );
 
 app.listen(port, () => console.log("Backend server live on " + port));
