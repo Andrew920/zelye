@@ -9,6 +9,7 @@
   "devDependencies": {
     "nodemon": "^2.0.20"
   },
+  "homepage": ".",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --inspect=0.0.0.0 server.js"
