@@ -2,6 +2,7 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import { useGetSponsorQuery } from 'Api';
 import { BackgroundImage, Button, LogotypeBig, Spinner } from 'Components';
 import { FC, useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { QRScan } from './QRScan';
 import './ScanRestaurantView.scss';
 
@@ -30,7 +31,7 @@ export const ScanRestaurantView: FC = () => {
         <LogotypeBig />
         <QRScan />
         <span>Scan the QR code on the table to recieve the menu of the restaurant.</span>
-
+        <Link to='1'>Demo Restaurant</Link>
         {/* Conditional login button if user is not logged in / token is not in store */}
         {user ? (
           <>
