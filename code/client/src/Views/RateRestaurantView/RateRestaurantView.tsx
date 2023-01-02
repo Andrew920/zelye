@@ -1,14 +1,56 @@
-import { useGetSponsorQuery } from 'Api';
+import { useGetSponsorQuery, useRateRestaurantMutation } from 'Api';
 import { BackgroundImage, Button, IconButton, IconName, Slider, Spinner } from 'Components';
-import { useAppSelector } from 'Hooks';
-import { FC, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'Hooks';
+import { FC, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import { setHospitality, setAtmosphere, setLocation, setValue, updateItem } from 'Slices';
+import { RequestBodyT } from 'Types';
 import './RateRestaurantView.scss';
 
 export const RateRestaurantView: FC = () => {
-  const [value, setValue] = useState(0);
   const { data: sponsorData, isLoading: sponsorIsLoading } = useGetSponsorQuery();
-  const { items } = useAppSelector((state) => state.rate);
-  // Check if user logged in. If not, carry out a login form and then display the rate page.
+  const [run, { isLoading, isError, isSuccess }] = useRateRestaurantMutation();
+  const { restaurant } = useParams();
+  const { items, hospitality, atmosphere, value, location } = useAppSelector((state) => state.rate);
+
+  const dispatch = useAppDispatch();
+
+  const handleSubmitRating = useCallback(() => {
+    if (!restaurant) return;
+
+    let tasteVal = null;
+    if (items.length > 0) {
+      tasteVal =
+        items.reduce(
+          (acc, item) =>
+            acc +
+            item.creativityVal +
+            item.tasteVal +
+            item.qualityVal +
+            item.memorabilityVal +
+            item.presentationVal,
+          0
+        ) /
+        (5 * items.length);
+    }
+    const requestBody: RequestBodyT = {
+      id: restaurant,
+      hospitality,
+      atmosphere,
+      value,
+      location,
+      taste: tasteVal,
+      items: items.map((itm) => ({
+        id: itm.id,
+        taste: itm.tasteVal,
+        quality: itm.qualityVal,
+        presentation: itm.presentationVal,
+        creativity: itm.creativityVal,
+        memorability: itm.memorabilityVal,
+      })),
+    };
+    run(requestBody);
+  }, [items, run]);
 
   return sponsorIsLoading ? (
     <Spinner />
@@ -21,25 +63,68 @@ export const RateRestaurantView: FC = () => {
           <IconButton icon={IconName.Close} href='..' />
         </div>
 
-        <Slider title='Hospitality' currValue={value} onChange={(e) => setValue(e)} />
-        <Slider title='Atmosphere' currValue={value} onChange={(e) => setValue(e)} />
-        <Slider title='Value' currValue={value} onChange={(e) => setValue(e)} />
-        <Slider title='Location' currValue={value} onChange={(e) => setValue(e)} />
+        <Slider
+          title='Hospitality'
+          currValue={hospitality}
+          onChange={(e) => dispatch(setHospitality(e))}
+        />
+        <Slider
+          title='Atmosphere'
+          currValue={atmosphere}
+          onChange={(e) => dispatch(setAtmosphere(e))}
+        />
+        <Slider title='Value' currValue={value} onChange={(e) => dispatch(setValue(e))} />
+        <Slider title='Location' currValue={location} onChange={(e) => dispatch(setLocation(e))} />
 
-        {items.map((item) => {
+        {items.map((item, i) => {
           return (
             <div className='item-rate'>
               <h4>{item.title}</h4>
-              <Slider title='Taste' currValue={value} onChange={(e) => setValue(e)} />
-              <Slider title='Quality' currValue={value} onChange={(e) => setValue(e)} />
-              <Slider title='Presentation' currValue={value} onChange={(e) => setValue(e)} />
-              <Slider title='Creativity' currValue={value} onChange={(e) => setValue(e)} />
-              <Slider title='Memorability' currValue={value} onChange={(e) => setValue(e)} />
+              <Slider
+                title='Taste'
+                currValue={item.tasteVal}
+                onChange={(e) =>
+                  dispatch(updateItem({ id: item.id, slider: 'tasteVal', value: e }))
+                }
+              />
+              <Slider
+                title='Quality'
+                currValue={item.qualityVal}
+                onChange={(e) =>
+                  dispatch(updateItem({ id: item.id, slider: 'qualityVal', value: e }))
+                }
+              />
+              <Slider
+                title='Presentation'
+                currValue={item.presentationVal}
+                onChange={(e) =>
+                  dispatch(updateItem({ id: item.id, slider: 'presentationVal', value: e }))
+                }
+              />
+              <Slider
+                title='Creativity'
+                currValue={item.creativityVal}
+                onChange={(e) =>
+                  dispatch(updateItem({ id: item.id, slider: 'creativityVal', value: e }))
+                }
+              />
+              <Slider
+                title='Memorability'
+                currValue={item.memorabilityVal}
+                onChange={(e) =>
+                  dispatch(updateItem({ id: item.id, slider: 'memorabilityVal', value: e }))
+                }
+              />
             </div>
           );
         })}
         <div className='finish'>
-          <Button text='Rate' isLarge />
+          <Button
+            disabled={isLoading}
+            text={isLoading ? 'Submitting' : 'Rate'}
+            isLarge
+            onClick={handleSubmitRating}
+          />
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { RateRestaurantRequestT, RestaurantT, SponsorT, UserAuth } from 'Types';
+import { RequestBodyT, RestaurantT, SponsorT, UserAuth } from 'Types';
 import { baseQuery } from './config';
 
 export const applicationApi = createApi({
@@ -9,8 +9,9 @@ export const applicationApi = createApi({
     userInfo: builder.mutation<UserAuth, string>({
       query: () => 'auth',
     }),
-    rateRestaurant: builder.mutation<RateRestaurantRequestT, RateRestaurantRequestT>({
-      query: (rating: RateRestaurantRequestT) => ({
+    rateRestaurant: builder.mutation<RequestBodyT, RequestBodyT>({
+      query: (rating) => ({
+        method: 'POST',
         url: `restaurant/${rating.id}`,
         body: rating,
       }),
@@ -24,4 +25,5 @@ export const applicationApi = createApi({
   }),
 });
 
-export const { useGetRestaurantQuery, useGetSponsorQuery } = applicationApi;
+export const { useGetRestaurantQuery, useGetSponsorQuery, useRateRestaurantMutation } =
+  applicationApi;

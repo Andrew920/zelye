@@ -1,9 +1,9 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query';
 
-const { REACT_APP_SERVER_URL } = process.env;
+const { REACT_APP_SERVER_URL, NODE_ENV } = process.env;
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'api/',
+  baseUrl: NODE_ENV == 'development' ? REACT_APP_SERVER_URL : 'api/',
   prepareHeaders: (headers: Headers) => {
     // If we have a token set in state, let's assume that we should be passing it.
     const token: string = localStorage.getItem('token') || '';
