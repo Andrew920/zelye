@@ -21,8 +21,23 @@ exports.getRestaurant = (req, res, next) => {
       conn.query("SELECT * FROM restaurant_rating WHERE id_rest = ?;", [req.params.id] ,defered.makeNodeResolver());
       return defered.promise;
     }
+    function getCategories(){
+      var defered = Q.defer();
+      conn.query("SELECT * FROM category WHERE rest_id = ? order by place;", [req.params.id] ,defered.makeNodeResolver());
+      return defered.promise;
+    }
+    function getSubCategories(cat_id){
+      var defered = Q.defer();
+      conn.query("SELECT * FROM subcategory WHERE category_id = " + cat_id + " order by place;" ,defered.makeNodeResolver());
+      return defered.promise;
+    }
+    function getSubCategories(sub_id){
+      var defered = Q.defer();
+      conn.query("SELECT * FROM subcategory WHERE category_id = " + sub_id + " order by place;" ,defered.makeNodeResolver());
+      return defered.promise;
+    }
 
-    Q.all([getNameLocation(),getContact(),getRating()]).then(function(results){
+    Q.all([getNameLocation(),getContact(),getRating(),getCategories()]).then(function(results){
       const contantInfo = {
         mobile: results[1][0][0].mobile,
         location: {
@@ -67,7 +82,33 @@ exports.getRestaurant = (req, res, next) => {
         name: "Test",
         icon: "test.jpg"
       };
+      
+      const menu = [];
+      for (let i = 0; i < results[3][0].length; i++) { 
+        let subcategories = [];
+        getSubCategories(results[3][0][i].id).then(function(results){   
+          for (let i = 0; i < results[0].length; i++) {
+            let items = [];
 
+            subcategories.push({
+              id: results[0][i].id,
+              title: results[0][i].name,
+              items: [foodItem]
+            });
+          }
+        });
+
+        menu.push({
+          id: results[3][0][i].id,
+          category: results[3][0][i].name,
+          image: results[3][0][i].image,
+          size: results[3][0][i].size,
+          col: results[3][0][i].col,
+          subcategories
+        });
+      }
+
+      
       const foodItem = {
         id: "1",
         title: "Test",
@@ -81,21 +122,21 @@ exports.getRestaurant = (req, res, next) => {
           amount: 100,
         }
       };
-      
-      const subcategory = {
-        id: 1,
-        title: "Pasta",
-        items: [foodItem]
-      };
-      
-      const category = {
-        id: 1,
-        category: "Glavna jed",
-        image: "test.jpg",
-        size: "large",
-        subcategories: [subcategory],
-        col: 0
-      };
+
+      // const subcategory = {
+      //   id: 1,
+      //   title: "Pasta",
+      //   items: [foodItem]
+      // };
+
+      // const category = {
+      //   id: 1,
+      //   category: "Glavna jed",
+      //   image: "test.jpg",
+      //   size: "large",
+      //   subcategories: [subcategory],
+      //   col: 0
+      // };
       
 
       let json = {
@@ -104,7 +145,7 @@ exports.getRestaurant = (req, res, next) => {
         location: results[0][0][0].location,
         contantInfo,
         restaurantRating,
-        menu: [[category, category], [category, category]]
+        menu: [category, category]
       }
         res.send(JSON.stringify(json));
         // console.log(JSON.stringify(json));
