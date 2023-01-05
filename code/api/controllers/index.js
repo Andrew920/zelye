@@ -32,8 +32,13 @@ exports.getRestaurant = (req, res, next) => {
       conn.query("SELECT subcategory.id, subcategory.name, subcategory.category_id FROM subcategory JOIN category ON category.id=subcategory.category_id WHERE category.rest_id = ?;", [req.params.id] ,defered.makeNodeResolver());
       return defered.promise;
     }
+    function getFood(){
+      var defered = Q.defer();
+      conn.query("SELECT item.* FROM item JOIN subcategory ON subcategory.id=item.subcategory_id JOIN category ON category.id=subcategory.category_id WHERE category.rest_id = ?;", [req.params.id] ,defered.makeNodeResolver());
+      return defered.promise;
+    }
 
-    Q.all([getNameLocation(),getContact(),getRating(),getCategories(),getSubCategories()]).then(function(results){
+    Q.all([getNameLocation(),getContact(),getRating(),getCategories(),getSubCategories(),getFood()]).then(function(results){
       const contantInfo = {
         mobile: results[1][0][0].mobile,
         location: {
@@ -114,6 +119,22 @@ exports.getRestaurant = (req, res, next) => {
         for (let j = 0; j < results[4][0].length; j++) {
           if(results[3][0][i].id == results[4][0][j].category_id){
             let items = [];
+            for (let k = 0; k < results[5][0].length; k++) {
+              if(results[4][0][j].id == results[5][0][k].subcategory_id){
+                items.push({ 
+                  id: results[5][0][k].id,
+                  title: results[5][0][k].name,
+                  image: results[5][0][k].image,
+                  description: results[5][0][k].description,
+                  price: {
+                    currency: "EUR",
+                    amount: results[5][0][k].price,
+                  },
+                  alergens: [],
+                  ingredients: [],
+                });
+              }
+            }
             subcategories.push({
               id: results[4][0][j].id,
               title: results[4][0][j].name,

@@ -34,5 +34,5 @@ kategorije = [
 f = open('subs.sql', 'w')
 for id, (dish, parentId) in enumerate(kategorije):
     f.write(
-        f"INSERT INTO subcategory(id, name, category_id) VALUES ({id}, {dish},{parentId});\n")
+        f"INSERT INTO subcategory(id, name, category_id) VALUES ({id+1}, \"{dish}\",{parentId});\n")
 f.close()

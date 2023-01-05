@@ -7,4 +7,4 @@ f = open('food.sql', 'w')
 
 for id, (name, desc, sub, price) in enumerate(items):
     f.write(
-        f"INSERT INTO item(id, name, image, description, subcategory_id, price, price_unit) VALUES ({id},'{name}','image-{id}.jpeg','{desc}',{sub},{float('.'.join(price.split(',')))},'EUR');\n")
+        f"INSERT INTO item(id, name, image, description, subcategory_id, price, price_unit) VALUES ({id+1},\"{name}\",\"image-{id}.jpeg\",\"{desc}\",{int(sub) + 1},{float('.'.join(price.split(',')))},\"EUR\");\n")
