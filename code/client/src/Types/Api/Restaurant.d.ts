@@ -34,7 +34,7 @@ export type FoodItemT = {
   description: string;
   alergens: Array<AlergenT>;
   ingredients: Array<IngredientT>;
-  rating: FoodRatingT;
+  ratings: FoodRatingT;
   price: {
     currency: string;
     amount: number;
@@ -52,7 +52,7 @@ export type CategoryT = {
   category: string;
   image: string;
   col: 0 | 1;
-  size: 'large' | 'medium' | 'small';
+  size: 1 | 2 | 3;
   subcategories: Array<SubcategoryT>;
 };
 

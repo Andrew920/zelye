@@ -39,7 +39,7 @@ export const RateRestaurantView: FC = () => {
       atmosphere,
       value,
       location,
-      taste: tasteVal,
+      food: tasteVal,
       items: items.map((itm) => ({
         id: itm.id,
         taste: itm.tasteVal,

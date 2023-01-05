@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { BackgroundImage, Icon, IconButton, IconName, Spinner } from 'Components';
 import { useGetRestaurantQuery, useGetSponsorQuery } from 'Api';
@@ -46,15 +46,18 @@ export const RestaurantView: FC = () => {
           <div className='restaurant-view__categories-table'>
             {splitCategories(restaurantData.menu).map((categoryArr: CategoryT[], i: number) => (
               <div key={`category-${i}`} className='restaurant-view__categories_col'>
-                {categoryArr.map((category: CategoryT) => (
-                  <CategoryCard
-                    key={category.category}
-                    title={category.category}
-                    link={category.id}
-                    image={category.image}
-                    size={category.size}
-                  />
-                ))}
+                {categoryArr.map((category: CategoryT) => {
+                  console.log(category);
+                  return (
+                    <CategoryCard
+                      key={category.category}
+                      title={category.category}
+                      link={category.id}
+                      image={category.image}
+                      size={category.size}
+                    />
+                  );
+                })}
               </div>
             ))}
           </div>

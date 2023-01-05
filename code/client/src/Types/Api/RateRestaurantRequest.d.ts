@@ -4,7 +4,7 @@ export type RequestBodyT = {
   atmosphere: number;
   value: number;
   location: number;
-  taste: number | null;
+  food: number | null;
   items: {
     id: string;
     taste: number;
