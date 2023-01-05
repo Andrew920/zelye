@@ -1,5 +1,5 @@
 const { execSync } = require("child_process");
-execSync("sleep 10");
+// execSync("sleep 10");
 
 const express = require("express");
 app = express();
@@ -7,6 +7,8 @@ port = process.env.PORT || 5000;
 cors = require("cors");
 
 const router = require("./routes");
+
+app.use("/images", express.static('images'));
 
 app.use("/api", router);
 
