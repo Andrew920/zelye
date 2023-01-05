@@ -2,6 +2,24 @@ const conn = require("../services/db");
 const Q = require('q');
 const { async } = require("q");
 
+
+
+exports.rateRestaurant = (req, res, body) => {
+  for (var i = 0; i < body.items.length; i++) {
+    sql = "INSERT INTO item_rating(quality, item_id, taste, presentation, memorability, creativity) VALUES (?)";
+    values = [body.items[i].quality, body.items[i].id, body.items[i].taste, body.items[i].presentation, body.items[i].memorability, body.items[i].creativity];
+    conn.query(sql, [values], function (err, result) {
+      if (err) throw err;
+    });
+  }
+  sql = "INSERT INTO restaurant_rating(id_rest, hospitality, atmosphere, value, location, food) VALUES ( ? )";
+  values = [body.id, body.hospitality, body.atmosphere, body.value, body.location, body.food];
+  conn.query(sql, [values], function (err, result) {
+    if (err) throw err;
+  });
+  res.send(JSON.stringify("You rated restaurant with id: " + req.params.id));
+}
+
 exports.getRestaurant = (req, res, next) => {
     if (!req.params.id) {
       return next(new AppError("No todo id found", 404));
