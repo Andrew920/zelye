@@ -21,9 +21,10 @@
   }
 
   .category-view__navigation-bar {
-    flex-shrink: 0;
     display: flex;
     gap: 0.25rem;
+    align-items: center;
+    overflow-x: scroll;
     overflow-y: hidden;
     padding: calc(var(--layout-padding) / 2) var(--layout-padding);
 
@@ -37,6 +38,7 @@
     flex-direction: column;
     gap: 0.5rem;
     overflow-y: scroll;
+    flex: 1;
     padding: 0 var(--layout-padding) var(--layout-padding) var(--layout-padding);
 
     .section-items {

@@ -2,7 +2,7 @@ import { useGetSponsorQuery, useRateRestaurantMutation } from 'Api';
 import { BackgroundImage, Button, IconButton, IconName, Slider, Spinner } from 'Components';
 import { useAppDispatch, useAppSelector } from 'Hooks';
 import { FC, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { setHospitality, setAtmosphere, setLocation, setValue, updateItem } from 'Slices';
 import { RequestBodyT } from 'Types';
 import './RateRestaurantView.scss';
@@ -14,8 +14,8 @@ export const RateRestaurantView: FC = () => {
   const { items, hospitality, atmosphere, value, location } = useAppSelector((state) => state.rate);
 
   const dispatch = useAppDispatch();
-
-  const handleSubmitRating = useCallback(() => {
+  const navigate = useNavigate();
+  const handleSubmitRating = useCallback(async () => {
     if (!restaurant) return;
 
     let tasteVal = null;
@@ -39,7 +39,7 @@ export const RateRestaurantView: FC = () => {
       atmosphere,
       value,
       location,
-      taste: tasteVal,
+      food: tasteVal,
       items: items.map((itm) => ({
         id: itm.id,
         taste: itm.tasteVal,
@@ -49,8 +49,11 @@ export const RateRestaurantView: FC = () => {
         memorability: itm.memorabilityVal,
       })),
     };
-    run(requestBody);
-  }, [items, run]);
+    await run(requestBody);
+    if (isSuccess && !isLoading) {
+      navigate('..');
+    }
+  }, [items, run, isSuccess, isLoading]);
 
   return sponsorIsLoading ? (
     <Spinner />

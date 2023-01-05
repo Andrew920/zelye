@@ -16,7 +16,7 @@ export const NavbarItem: FC<NavbarItemT> = ({ text, active, id, anchorRef }) => 
       href={`#${id}`}
       className={classNames('navbar-item', active && 'active-link')}
     >
-      {text}
+      <span>{text}</span>
     </a>
   );
 };

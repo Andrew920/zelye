@@ -8,16 +8,21 @@ export type CategoryCardI = {
   title: string;
   link: string;
   image: string;
-  size: 'large' | 'medium' | 'small';
+  size: 1 | 2 | 3;
 };
 
 export const CategoryCard: FC<CategoryCardI> = ({ title, link, image, size }) => {
+  const sizes = ['small', 'medium', 'large'];
+  const { REACT_APP_SERVER_URL } = process.env;
+
   return (
     <NavLink
-      to={link}
-      className={classNames('category-card__container', size)}
+      to={link + ''}
+      className={classNames('category-card__container', sizes[size - 1])}
       style={{
-        backgroundImage: `linear-gradient(180deg, #333333 0%, rgba(37, 41, 45, 0) 100%), url(${image})`,
+        backgroundImage: `linear-gradient(180deg, #333333 0%, rgba(37, 41, 45, 0) 100%), url('${REACT_APP_SERVER_URL}/images/${
+          image || 'coca-cola.png'
+        }')`,
       }}
     >
       <span className='title'>{title}</span>

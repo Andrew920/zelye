@@ -27,17 +27,6 @@ export const Radar: FC<RadarT> = ({ reviews }) => {
     reviews.memorability || 0,
   ];
 
-  console.log({
-    labels,
-    datasets: [
-      {
-        label: `Overall: ${dataset.reduce((a, b) => a + b, 0) / dataset.length}`,
-        data: dataset,
-        backgroundColor: 'rgba(87,195,97,0.69)',
-        borderColor: 'rgba(87,195,97)',
-      },
-    ],
-  });
   return (
     <RadarChart
       data={{

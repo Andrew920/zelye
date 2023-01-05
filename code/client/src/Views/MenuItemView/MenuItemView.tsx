@@ -25,6 +25,7 @@ export const MenuItemView: FC = () => {
   const { items } = useAppSelector((state) => state.rate);
   const dispatch = useAppDispatch();
 
+  const { REACT_APP_SERVER_URL } = process.env;
   return isLoading ? (
     <Spinner />
   ) : foodItem ? (
@@ -32,7 +33,9 @@ export const MenuItemView: FC = () => {
       <div
         className='header'
         style={{
-          backgroundImage: `linear-gradient(0deg, #25292D 0%, rgba(51, 51, 51, 0.2) 100%), url(${foodItem.image})`,
+          backgroundImage: `linear-gradient(0deg, #25292D 0%, rgba(51, 51, 51, 0.2) 100%), url('${REACT_APP_SERVER_URL}/images/${
+            foodItem.image || 'default.png'
+          })`,
         }}
       >
         <div className='navigation-header'>
@@ -86,13 +89,13 @@ export const MenuItemView: FC = () => {
             id: '1',
             icon: IconName.Radar,
             name: 'Reviews',
-            component: <Radar reviews={foodItem.rating} />,
+            component: <Radar reviews={foodItem.ratings} />,
           },
           {
             id: '2',
             icon: IconName.TableRows,
             name: 'Reviews',
-            component: <TableReviews reviews={foodItem.rating} />,
+            component: <TableReviews reviews={foodItem.ratings} />,
           },
         ]}
       />
