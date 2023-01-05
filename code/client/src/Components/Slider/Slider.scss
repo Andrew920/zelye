@@ -23,14 +23,14 @@ $text-color: var(--white-100);
       /***** Track Styles *****/
       /***** Chrome, Safari, Opera, and Edge Chromium *****/
       &::-webkit-slider-runnable-track {
-        background: var(--primary-60);
+        background: var(--accent-80);
         height: 5px;
         border-radius: 3px;
       }
 
       /******** Firefox ********/
       &::-moz-range-track {
-        background: var(--accent-100);
+        background: var(--accent-80);
         height: 5px;
         border-radius: 3px;
       }
