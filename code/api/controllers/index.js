@@ -55,8 +55,13 @@ exports.getRestaurant = (req, res, next) => {
       conn.query("SELECT item.* FROM item JOIN subcategory ON subcategory.id=item.subcategory_id JOIN category ON category.id=subcategory.category_id WHERE category.rest_id = ?;", [req.params.id] ,defered.makeNodeResolver());
       return defered.promise;
     }
+    function getItemRatings(){
+      var defered = Q.defer();
+      conn.query("SELECT item_rating.* FROM item_rating JOIN item on item.id=item_rating.item_id JOIN subcategory ON subcategory.id=item.subcategory_id JOIN category ON category.id=subcategory.category_id WHERE category.rest_id = ?;", [req.params.id] ,defered.makeNodeResolver());
+      return defered.promise;
+    }
 
-    Q.all([getNameLocation(),getContact(),getRating(),getCategories(),getSubCategories(),getFood()]).then(function(results){
+    Q.all([getNameLocation(),getContact(),getRating(),getCategories(),getSubCategories(),getFood(),getItemRatings()]).then(function(results){
       const contantInfo = {
         mobile: results[1][0][0].mobile,
         location: {
@@ -139,18 +144,34 @@ exports.getRestaurant = (req, res, next) => {
             let items = [];
             for (let k = 0; k < results[5][0].length; k++) {
               if(results[4][0][j].id == results[5][0][k].subcategory_id){
-                const ratings = [5,10,15,20,25];
+                let calc_ratings = [0,0,0,0,0];
+                let counter = 0;
 
-                // for (let l = 0; l < results[6][0].length; l++) {
-                //   ratings[0] += results[6][0][l].hospitality;
-                //   ratings[1] += results[6][0][l].food;
-                //   ratings[2] += results[6][0][l].atmosphere;
-                //   ratings[3] += results[6][0][l].value;
-                //   ratings[4] += results[6][0][l].location;
-                // }
-                // for (let l = 0; l < ratings.length; l++) {
-                //   ratings[l] = ratings[l]/results[6][0].length;
-                // }
+                for (let l = 0; l < results[6][0].length; l++) {
+                  if(results[5][0][k].id == results[6][0][l].item_id){
+                    calc_ratings[0] += results[6][0][l].taste;
+                    calc_ratings[1] += results[6][0][l].quality;
+                    calc_ratings[2] += results[6][0][l].presentation;
+                    calc_ratings[3] += results[6][0][l].creativity;
+                    calc_ratings[4] += results[6][0][l].memorability;
+                    counter++;
+                  }
+                }
+                
+                if (counter == 0) {
+                  counter = 1;
+                }
+                for (let l = 0; l < 5; l++) {
+                  calc_ratings[l] = calc_ratings[l]/counter;
+                }
+                // console.table(calc_ratings);
+                let rating = {
+                  taste: calc_ratings[0],
+                  quality: calc_ratings[1],
+                  presentation: calc_ratings[2],
+                  creativity: calc_ratings[3],
+                  memorability: calc_ratings[4],
+                }
 
                 items.push({ 
                   id: results[5][0][k].id,
@@ -161,14 +182,8 @@ exports.getRestaurant = (req, res, next) => {
                     currency: "EUR",
                     amount: results[5][0][k].price,
                   },
-                  ratings: {
-                    taste: ratings[0],
-                    quality: ratings[1],
-                    presentation: ratings[2],
-                    creativity: ratings[3],
-                    memorability: ratings[4],
-                  },
-                  alergens: [],
+                  rating,
+                  alergens: [""],
                   ingredients: [],
                 });
               }
