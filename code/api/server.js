@@ -6,6 +6,12 @@ app = express();
 port = process.env.PORT || 5000;
 cors = require("cors");
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 const router = require("./routes");
 
 app.use("/images", express.static('images'));
@@ -16,7 +22,6 @@ router.route("/sponsor").get((req, res) => {
   console.log("sponsor " + req.params.id);
   res.json({ id: 1, name: "coca-cola", logotype: null, background: null });
 });
-
 
 app.use("/api", router);
 
