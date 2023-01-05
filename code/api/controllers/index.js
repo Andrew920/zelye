@@ -121,6 +121,19 @@ exports.getRestaurant = (req, res, next) => {
             let items = [];
             for (let k = 0; k < results[5][0].length; k++) {
               if(results[4][0][j].id == results[5][0][k].subcategory_id){
+                const ratings = [5,10,15,20,25];
+
+                // for (let l = 0; l < results[6][0].length; l++) {
+                //   ratings[0] += results[6][0][l].hospitality;
+                //   ratings[1] += results[6][0][l].food;
+                //   ratings[2] += results[6][0][l].atmosphere;
+                //   ratings[3] += results[6][0][l].value;
+                //   ratings[4] += results[6][0][l].location;
+                // }
+                // for (let l = 0; l < ratings.length; l++) {
+                //   ratings[l] = ratings[l]/results[6][0].length;
+                // }
+
                 items.push({ 
                   id: results[5][0][k].id,
                   title: results[5][0][k].name,
@@ -129,6 +142,13 @@ exports.getRestaurant = (req, res, next) => {
                   price: {
                     currency: "EUR",
                     amount: results[5][0][k].price,
+                  },
+                  ratings: {
+                    taste: ratings[0],
+                    quality: ratings[1],
+                    presentation: ratings[2],
+                    creativity: ratings[3],
+                    memorability: ratings[4],
                   },
                   alergens: [],
                   ingredients: [],
