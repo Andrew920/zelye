@@ -36,7 +36,7 @@ export const QRScan: FC = () => {
             setData(result.getText()?.split('/').pop() || '');
           }
           if (error) {
-            setError(error.message);
+            setError('Camera only works on pages with HTTPS');
           }
         }}
         constraints={{
