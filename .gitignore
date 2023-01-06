@@ -5,6 +5,5 @@
 # /code/api/node_modules
 /code/client/node_modules
 /code/api/images/**
-/code/api/sponsor/**
 
 **/core

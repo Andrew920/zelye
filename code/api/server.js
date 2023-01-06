@@ -1,5 +1,5 @@
 const { execSync } = require("child_process");
-// execSync("sleep 10");
+execSync("sleep 10");
 
 const express = require("express");
 app = express();
@@ -15,13 +15,6 @@ app.use(function(req, res, next) {
 const router = require("./routes");
 
 app.use("/images", express.static('images'));
-
-app.use("/sponsor", express.static('sponsor'));
-
-router.route("/sponsor").get((req, res) => {
-  console.log("sponsor " + req.params.id);
-  res.json({ id: 1, name: "coca-cola", logotype: null, background: null });
-});
 
 app.use("/api", router);
 

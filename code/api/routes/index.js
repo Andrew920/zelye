@@ -22,6 +22,9 @@ router.route("/restaurant/:id/rate").post((req, res) => {
   controllers.rateRestaurant(req, res, req.body);
 });
 
-
+router.route("/sponsor").get((req, res) => {
+  console.log("sponsor " + req.params.id);
+  res.json({ id: 1, name: "coca-cola", logotype: "coca-cola-sponsor.png", background: "coca-cola.png" });
+});
 
 module.exports = router;
