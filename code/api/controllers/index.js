@@ -3,7 +3,7 @@ const Q = require('q');
 const { async } = require("q");
 
 
-
+// Post request to rate restaurant
 exports.rateRestaurant = (req, res, body) => {
   for (var i = 0; i < body.items.length; i++) {
     sql = "INSERT INTO item_rating(quality, item_id, taste, presentation, memorability, creativity) VALUES (?)";
@@ -20,11 +20,13 @@ exports.rateRestaurant = (req, res, body) => {
   res.send(JSON.stringify("You rated restaurant with id: " + req.params.id));
 }
 
+// Get request to get restaurant data
 exports.getRestaurant = (req, res, next) => {
     if (!req.params.id) {
       return next(new AppError("No todo id found", 404));
     }
 
+    // Creating a promise chain for database queries
     function getNameLocation(){
       var defered = Q.defer();
       conn.query("SELECT * FROM restaurant WHERE id = ?;", [req.params.id] ,defered.makeNodeResolver());
@@ -60,8 +62,18 @@ exports.getRestaurant = (req, res, next) => {
       conn.query("SELECT item_rating.* FROM item_rating JOIN item on item.id=item_rating.item_id JOIN subcategory ON subcategory.id=item.subcategory_id JOIN category ON category.id=subcategory.category_id WHERE category.rest_id = ?;", [req.params.id] ,defered.makeNodeResolver());
       return defered.promise;
     }
+    function getItemIngredients(){
+      var defered = Q.defer();
+      conn.query("SELECT ingredients.* FROM ingredients JOIN item on item.id=ingredients.item_id JOIN subcategory ON subcategory.id=item.subcategory_id JOIN category ON category.id=subcategory.category_id WHERE category.rest_id = ?;", [req.params.id] ,defered.makeNodeResolver());
+      return defered.promise;
+    }
+    function getItemAllergens(){
+      var defered = Q.defer();
+      conn.query("SELECT allergens.* FROM allergens JOIN item on item.id=allergens.item_id JOIN subcategory ON subcategory.id=item.subcategory_id JOIN category ON category.id=subcategory.category_id WHERE category.rest_id = ?;", [req.params.id] ,defered.makeNodeResolver());
+      return defered.promise;
+    }
 
-    Q.all([getNameLocation(),getContact(),getRating(),getCategories(),getSubCategories(),getFood(),getItemRatings()]).then(function(results){
+    Q.all([getNameLocation(),getContact(),getRating(),getCategories(),getSubCategories(),getFood(),getItemRatings(), getItemIngredients(), getItemAllergens()]).then(function(results){
       const contantInfo = {
         mobile: results[1][0][0].mobile,
         location: {
@@ -73,6 +85,7 @@ exports.getRestaurant = (req, res, next) => {
         email: results[1][0][0].email,
       };
 
+      // Calcultaing restaurant rating
       const ratings = [0,0,0,0,0];
       for (let i = 0; i < results[2][0].length; i++) {
         ratings[0] += results[2][0][i].hospitality;
@@ -85,6 +98,7 @@ exports.getRestaurant = (req, res, next) => {
         ratings[i] = ratings[i]/results[2][0].length;
       }
 
+      // Restaurant rating
       const restaurantRating = {
         hospitality: ratings[0],
         food: ratings[1],
@@ -93,49 +107,7 @@ exports.getRestaurant = (req, res, next) => {
         location: ratings[4]
       };
       
-      const FoodRatingT = {
-        taste: 5,
-        ingredientQuality: 5,
-        presentation: 5,
-        creativity: 5,
-        memorability: 5,
-      };
-
-      const AlergenT = {
-        id: 1,
-        name: "Test",
-        icon: "test.jpg"
-      };
-
-      // const foodItem = {
-      //   id: "1",
-      //   title: "Test",
-      //   image: "test.jpg",
-      //   description: "Test",
-      //   alergens: [AlergenT],
-      //   ingredients: ["Tle pridejo sestavinee", "Test"],
-      //   rating: FoodRatingT,
-      //   price: {
-      //     currency: "EUR",
-      //     amount: 100,
-      //   }
-      // };
-
-      // const subcategory = {
-      //   id: 1,
-      //   title: "Pasta",
-      //   items: [foodItem]
-      // };
-
-      // const category = {
-      //   id: 1,
-      //   category: "Glavna jed",
-      //   image: "test.jpg",
-      //   size: "large",
-      //   subcategories: [subcategory],
-      //   col: 0
-      // };
-      
+      // Creating menu
       const menu = [];
       for (let i = 0; i < results[3][0].length; i++) { 
         let subcategories = [];
@@ -146,7 +118,8 @@ exports.getRestaurant = (req, res, next) => {
               if(results[4][0][j].id == results[5][0][k].subcategory_id){
                 let calc_ratings = [0,0,0,0,0];
                 let counter = 0;
-
+                
+                // Calculating item rating
                 for (let l = 0; l < results[6][0].length; l++) {
                   if(results[5][0][k].id == results[6][0][l].item_id){
                     calc_ratings[0] += results[6][0][l].taste;
@@ -164,7 +137,7 @@ exports.getRestaurant = (req, res, next) => {
                 for (let l = 0; l < 5; l++) {
                   calc_ratings[l] = calc_ratings[l]/counter;
                 }
-                // console.table(calc_ratings);
+                
                 let rating = {
                   taste: calc_ratings[0],
                   quality: calc_ratings[1],
@@ -173,6 +146,23 @@ exports.getRestaurant = (req, res, next) => {
                   memorability: calc_ratings[4],
                 }
 
+                // Getting item ingredients
+                ingredients = [];
+                for (let l = 0; l < results[7][0].length; l++) {
+                  if(results[5][0][k].id == results[7][0][l].item_id){
+                    ingredients.push(results[7][0][l].name);
+                  }
+                }
+
+                // Getting item allergens
+                allergens = [];
+                for (let l = 0; l < results[8][0].length; l++) {
+                  if(results[5][0][k].id == results[8][0][l].item_id){
+                    allergens.push(results[8][0][l].name);
+                  }
+                }
+
+                // Pushing item into array
                 items.push({ 
                   id: results[5][0][k].id,
                   title: results[5][0][k].name,
@@ -183,8 +173,8 @@ exports.getRestaurant = (req, res, next) => {
                     amount: results[5][0][k].price,
                   },
                   rating,
-                  alergens: [""],
-                  ingredients: [],
+                  allergens,
+                  ingredients,
                 });
               }
             }
