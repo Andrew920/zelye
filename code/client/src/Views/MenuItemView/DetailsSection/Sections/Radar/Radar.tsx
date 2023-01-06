@@ -21,7 +21,7 @@ export const Radar: FC<RadarT> = ({ reviews }) => {
   const labels = ['Taste', 'Quality', 'Presentation', 'Creativity', 'Memorability'];
   const dataset = [
     reviews.taste || 0,
-    reviews.ingredientQuality || 0,
+    reviews.quality || 0,
     reviews.presentation || 0,
     reviews.creativity || 0,
     reviews.memorability || 0,

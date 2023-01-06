@@ -19,7 +19,7 @@ export const TableReviews: FC<TableReviewsT> = ({ reviews }) => {
     },
     {
       category: 'Quality',
-      value: reviews.ingredientQuality,
+      value: reviews.quality,
     },
     {
       category: 'Presentation',

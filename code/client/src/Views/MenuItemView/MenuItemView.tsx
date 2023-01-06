@@ -82,20 +82,20 @@ export const MenuItemView: FC = () => {
           },
         ]}
       />
-
+      {/* {console.log(foodItem.ratings)} */}
       <DetailsSection
         items={[
           {
             id: '1',
             icon: IconName.Radar,
             name: 'Reviews',
-            component: <Radar reviews={foodItem.ratings} />,
+            component: <Radar reviews={foodItem.rating} />,
           },
           {
             id: '2',
             icon: IconName.TableRows,
             name: 'Reviews',
-            component: <TableReviews reviews={foodItem.ratings} />,
+            component: <TableReviews reviews={foodItem.rating} />,
           },
         ]}
       />

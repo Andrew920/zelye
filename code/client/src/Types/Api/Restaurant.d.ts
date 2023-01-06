@@ -21,7 +21,7 @@ export type RestaurantRatingT = {
 
 export type FoodRatingT = {
   taste: number | null;
-  ingredientQuality: number | null;
+  quality: number | null;
   presentation: number | null;
   creativity: number | null;
   memorability: number | null;
@@ -34,7 +34,7 @@ export type FoodItemT = {
   description: string;
   alergens: Array<AlergenT>;
   ingredients: Array<IngredientT>;
-  ratings: FoodRatingT;
+  rating: FoodRatingT;
   price: {
     currency: string;
     amount: number;
