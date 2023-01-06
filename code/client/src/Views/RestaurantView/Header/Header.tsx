@@ -13,7 +13,7 @@ export const Header: FC<HeaderT> = ({ logotype }) => {
     <div className='app-header'>
       <Logotype />
 
-      <img src={`${REACT_APP_SERVER_URL}/sponsor/${logotype || 'coca-cola-sponsor.png'}`} />
+      <img src={`${REACT_APP_SERVER_URL}/images/${logotype || 'coca-cola-sponsor.png'}`} />
       <IconButton href={'..'} icon={IconName.Close} />
     </div>
   );
