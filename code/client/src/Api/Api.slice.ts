@@ -12,7 +12,7 @@ export const applicationApi = createApi({
     rateRestaurant: builder.mutation<RequestBodyT, RequestBodyT>({
       query: (rating) => ({
         method: 'POST',
-        url: `restaurant/${rating.id}`,
+        url: `restaurant/${rating.id}/rate`,
         body: rating,
       }),
     }),
