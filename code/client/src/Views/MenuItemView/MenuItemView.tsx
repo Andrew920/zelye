@@ -74,7 +74,7 @@ export const MenuItemView: FC = () => {
             id: '2',
             icon: IconName.Egg,
             name: 'Alergens',
-            component: <List items={foodItem.alergens} />,
+            component: <List items={foodItem.allergens} />,
           },
           {
             id: '3',

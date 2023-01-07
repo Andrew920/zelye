@@ -1,5 +1,3 @@
-import { AlergenT, IngredientT } from './Constants';
-
 export type ContantInfoT = {
   mobile: string;
   location: {
@@ -32,8 +30,8 @@ export type FoodItemT = {
   title: string;
   image: string;
   description: string;
-  alergens: Array<AlergenT>;
-  ingredients: Array<IngredientT>;
+  allergens: Array<string>;
+  ingredients: Array<string>;
   rating: FoodRatingT;
   price: {
     currency: string;
