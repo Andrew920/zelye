@@ -25,6 +25,8 @@ export const MenuItemView: FC = () => {
   const { items } = useAppSelector((state) => state.rate);
   const dispatch = useAppDispatch();
 
+  console.log(foodItem);
+
   const { REACT_APP_SERVER_URL } = process.env;
   return isLoading ? (
     <Spinner />
@@ -82,7 +84,6 @@ export const MenuItemView: FC = () => {
           },
         ]}
       />
-      {/* {console.log(foodItem.ratings)} */}
       <DetailsSection
         items={[
           {

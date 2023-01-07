@@ -33,7 +33,7 @@ export const Radar: FC<RadarT> = ({ reviews }) => {
         labels,
         datasets: [
           {
-            data: dataset,
+            data: dataset || [0, 0, 0, 0, 0],
             backgroundColor: 'rgba(87,195,97,0.69)',
             borderColor: 'rgba(87,195,97)',
           },

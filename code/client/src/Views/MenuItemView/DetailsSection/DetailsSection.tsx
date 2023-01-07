@@ -13,7 +13,6 @@ export type DetailsSectionT = {
 
 export const DetailsSection: FC<DetailsSectionT> = ({ items }) => {
   const [activeItem, setActiveItem] = useState(items[0]);
-
   return (
     <section className='details-section'>
       <div className='details-section__header'>
