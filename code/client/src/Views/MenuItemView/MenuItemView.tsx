@@ -35,9 +35,7 @@ export const MenuItemView: FC = () => {
       <div
         className='header'
         style={{
-          backgroundImage: `linear-gradient(0deg, #25292D 0%, rgba(51, 51, 51, 0.2) 100%), url('${REACT_APP_SERVER_URL}/images/${
-            foodItem.image || 'default.png'
-          })`,
+          backgroundImage: `linear-gradient(0deg, #25292D 0%, rgba(51, 51, 51, 0.2) 100%), url('${REACT_APP_SERVER_URL}/images/${foodItem.image}')`,
         }}
       >
         <div className='navigation-header'>
