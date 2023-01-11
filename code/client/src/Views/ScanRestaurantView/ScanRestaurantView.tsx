@@ -33,27 +33,17 @@ export const ScanRestaurantView: FC = () => {
         <span>Scan the QR code on the table to recieve the menu of the restaurant.</span>
         <Link to='1'>Demo Restaurant</Link>
         {/* Conditional login button if user is not logged in / token is not in store */}
-        {user ? (
-          <>
-            <div className='logged-in-user'>
-              <span>You are logged in as:</span>
-              <div>David Bester</div>
-            </div>
-            <Button onClick={() => setUser('')} text='Log out' />
-          </>
-        ) : (
-          <div className='login-user'>
-            Login with Google:
-            <GoogleLogin
-              size='large'
-              type='icon'
-              theme='outline'
-              shape='pill'
-              onSuccess={successCallback}
-              onError={errorCallback}
-            />
-          </div>
-        )}
+        <div className='login-user'>
+          Login with Google:
+          <GoogleLogin
+            size='large'
+            type='icon'
+            theme='outline'
+            shape='pill'
+            onSuccess={successCallback}
+            onError={errorCallback}
+          />
+        </div>
       </div>
     </>
   );
