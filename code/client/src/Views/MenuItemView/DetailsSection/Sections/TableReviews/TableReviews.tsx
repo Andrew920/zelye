@@ -8,7 +8,7 @@ export type TableReviewsT = {
 
 const average = (arr: Array<number | null>) => {
   const nonNull = arr.filter((item) => item != null) as Array<number>;
-  return nonNull.reduce((p, c) => p + c, 0) / arr.length;
+  return (nonNull.reduce((p, c) => p + c, 0) / arr.length).toFixed(2);
 };
 
 export const TableReviews: FC<TableReviewsT> = ({ reviews }) => {
@@ -39,7 +39,7 @@ export const TableReviews: FC<TableReviewsT> = ({ reviews }) => {
       {data.map(({ category, value }) => (
         <div className='table-reviews-row'>
           <div className='category'>{category}</div>
-          <div className='value'>{value}</div>
+          <div className='value'>{value?.toFixed(2)}</div>
         </div>
       ))}
       <div className='table-reviews-row'>

@@ -55,7 +55,7 @@ export const MenuItemView: FC = () => {
         <div className='title-header'>
           <h3>{foodItem.title}</h3>
           <span>
-            {foodItem.price.amount} {foodItem.price.currency}
+            {foodItem.price.amount.toFixed(2)} {foodItem.price.currency}
           </span>
         </div>
       </div>
